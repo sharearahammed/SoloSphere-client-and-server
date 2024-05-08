@@ -30,13 +30,13 @@ const router = createBrowserRouter([
         path: '/job/:id',
         element: <JobDetails />,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/job/${params.id}`),
+          fetch(`${import.meta.env.VITE_API_URL}/job/${params.id}`),
       },
       {
         path: '/update/:id',
         element: <UpdateJob />,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/job/${params.id}`),
+          fetch(`${import.meta.env.VITE_API_URL}/job/${params.id}`),
       },
       {
         path: '/add-job',

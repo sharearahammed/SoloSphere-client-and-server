@@ -8,27 +8,32 @@ const MyPostedJobs = () => {
   const { user } = useContext(AuthContext)
   const [jobs, setJobs] = useState([])
 
-  useEffect(() => {
-    getData()
-  }, [user])
-
-  const getData = async () => {
-    const { data } = await axios(
-      `http://localhost:5000/jobs/${user?.email}`
-    )
-    setJobs(data)
+  const[toggle,setToggle] = useState(true);
+  const reload = ()=>{
+    setToggle(!toggle);
   }
+  useEffect(() => {
+    const getData = async () => {
+      const { data } = await axios(
+        `${import.meta.env.VITE_API_URL}/jobs/${user?.email}`
+      )
+      setJobs(data)
+    }
+    getData()
+  }, [user,toggle])
+
 
   const handleDelete = async id => {
     try {
       const { data } = await axios.delete(
-        `http://localhost:5000/job/${id}`
+        `${import.meta.env.VITE_API_URL}/job/${id}`
       )
       console.log(data)
       toast.success('Delete Successful')
 
       //refresh ui
-      getData()
+      // getData()
+      reload();
     } catch (err) {
       console.log(err.message)
       toast.error(err.message)

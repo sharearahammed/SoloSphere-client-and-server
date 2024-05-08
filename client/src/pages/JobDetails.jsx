@@ -49,7 +49,7 @@ const JobDetails = () => {
     }
     try {
       const { data } = await axios.post(
-        `http://localhost:5000/bid`,
+        `${import.meta.env.VITE_API_URL}/bid`,
         bidData
       )
       console.log(data)
